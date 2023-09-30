@@ -1,0 +1,35 @@
+{
+  "name": "phone-book-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier -c src",
+    "format:fix": "prettier -w src"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.4",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@react-hook/media-query": "^1.1.1",
+    "graphql": "^16.8.1",
+    "next": "latest",
+    "prettier": "^3.0.3",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-icons": "^4.11.0",
+    "styled-system": "^5.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/styled-system": "^5.1.18",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "typescript": "latest"
+  }
+}
