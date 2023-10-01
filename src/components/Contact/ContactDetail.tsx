@@ -1,10 +1,12 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { CgProfile } from 'react-icons/cg'
 import styled from '@emotion/styled'
 import { ContactByPk } from '@/types/contact-detail'
-import { BiBookmark, BiSolidBookmark } from 'react-icons/bi'
-import Link from 'next/link'
-import useMediaType from '@/hooks/useMediaType'
+import Button from '@/components/Base/Button'
+import Modal from '@/components/Base/Modal'
+import EditContactForm from '@/components/Contact/EditContactForm'
+import EditPhoneNumberForm from '@/components/Contact/EditPhoneNumberForm'
+import AddPhoneNumberForm from '@/components/Contact/AddPhoneNumberForm'
 
 interface ContactDetailProps {
   contact: ContactByPk
@@ -54,6 +56,18 @@ const CardInfo = styled.p`
 `
 
 const ContactCard: FC<ContactDetailProps> = ({ contact }) => {
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false)
+  const [isModalEditNumberOpen, setIsModalEditNumberOpen] = useState(false)
+  const [isModalAddNumberOpen, setIsModalAddNumberOpen] = useState(false)
+  const openEditModal = () => setIsModalEditOpen(true)
+  const closeEditModal = () => setIsModalEditOpen(false)
+
+  const openEditNumberModal = () => setIsModalEditNumberOpen(true)
+  const closeEditNumberModal = () => setIsModalEditNumberOpen(false)
+
+  const openAddNumberModal = () => setIsModalAddNumberOpen(true)
+  const closeAddNumberModal = () => setIsModalAddNumberOpen(false)
+
   return (
     <CardContainer>
       <CardIcon>
@@ -74,6 +88,52 @@ const ContactCard: FC<ContactDetailProps> = ({ contact }) => {
           </CardInfo>
         </CardInformation>
       </CardBody>
+      <div
+        style={{
+          marginBottom: '20px',
+          marginTop: '10px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '10px',
+        }}
+      >
+        <Button
+          text={'Edit Contact'}
+          onClick={openEditModal}
+        />
+        <Button
+          text={'Edit Phone Number'}
+          onClick={openEditNumberModal}
+        />
+        <Button
+          text={'Add Phone Number'}
+          onClick={openAddNumberModal}
+        />
+      </div>
+
+      <Modal
+        isOpen={isModalAddNumberOpen}
+        onClose={closeAddNumberModal}
+      >
+        <AddPhoneNumberForm id={contact.id} />
+      </Modal>
+      <Modal
+        isOpen={isModalEditOpen}
+        onClose={closeEditModal}
+      >
+        <EditContactForm
+          id={contact.id}
+          first_name={contact.first_name}
+          last_name={contact.last_name}
+        />
+      </Modal>
+      <Modal
+        isOpen={isModalEditNumberOpen}
+        onClose={closeEditNumberModal}
+      >
+        <EditPhoneNumberForm id={contact.id} />
+      </Modal>
     </CardContainer>
   )
 }

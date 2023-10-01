@@ -17,7 +17,7 @@ const Title = styled.h1`
   font-size: 2rem;
   color: #fedd95;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 10px;
 

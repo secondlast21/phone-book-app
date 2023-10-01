@@ -1,14 +1,14 @@
-import React, {FC, useState} from 'react'
+import React, { FC, useState } from 'react'
 import styled from '@emotion/styled'
 import useDeviceType from '@/hooks/useMediaType'
 import { BiBookmark, BiSolidBookmark } from 'react-icons/bi'
-import {CgDetailsMore} from "react-icons/cg";
-import {MdDeleteOutline} from "react-icons/md";
+import { CgDetailsMore } from 'react-icons/cg'
+import { MdDeleteOutline } from 'react-icons/md'
 import { Contact } from '@/types/contact-list'
 import Link from 'next/link'
-import {useMutation} from "@apollo/client";
-import {DELETE_CONTACT_WITH_ID} from "@/services/queries";
-import Modal from "@/components/Base/Modal";
+import { useMutation } from '@apollo/client'
+import { DELETE_CONTACT_WITH_ID } from '@/services/queries'
+import Modal from '@/components/Base/Modal'
 
 interface ContactListProps {
   contacts: Contact[]
@@ -72,27 +72,27 @@ const ContactPhone = styled.span`
 
 const ContactList: FC<ContactListProps> = ({ contacts, handleFavorites, isFavorite }) => {
   const { isMobile, isTablet, isDesktop } = useDeviceType()
-    const [deleteContact] = useMutation(DELETE_CONTACT_WITH_ID);
+  const [deleteContact] = useMutation(DELETE_CONTACT_WITH_ID)
 
-    const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false)
-    const [isModalFailedOpen, setIsModalFailedOpen] = useState(false)
+  const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false)
+  const [isModalFailedOpen, setIsModalFailedOpen] = useState(false)
 
-    const openSuccessModal = () => setIsModalSuccessOpen(true)
-    const closeSuccessModal = () => setIsModalSuccessOpen(false)
+  const openSuccessModal = () => setIsModalSuccessOpen(true)
+  const closeSuccessModal = () => setIsModalSuccessOpen(false)
 
-    const openFailedModal = () => setIsModalFailedOpen(true)
-    const closeFailedModal = () => setIsModalFailedOpen(false)
+  const openFailedModal = () => setIsModalFailedOpen(true)
+  const closeFailedModal = () => setIsModalFailedOpen(false)
 
-    const handleDeleteContact = async (contactId: number) => {
-        try {
-            await deleteContact({
-                variables: { id: contactId },
-            });
-            setIsModalSuccessOpen(true)
-        } catch (error) {
-            setIsModalFailedOpen(true)
-        }
-    };
+  const handleDeleteContact = async (contactId: number) => {
+    try {
+      await deleteContact({
+        variables: { id: contactId },
+      })
+      setIsModalSuccessOpen(true)
+    } catch (error) {
+      setIsModalFailedOpen(true)
+    }
+  }
 
   let layoutComponent
   if (isDesktop) {
@@ -122,13 +122,13 @@ const ContactList: FC<ContactListProps> = ({ contacts, handleFavorites, isFavori
               <ContactPhone>
                 <div>{contact.phones[0]?.number || 'N/A'}</div>
                 <div>
-                    <MdDeleteOutline onClick={() => handleDeleteContact(contact.id)} />
-                    <Link
-                        style={{ textDecoration: 'none', color: '#fedd95', cursor: 'pointer' }}
-                        href={`/detail/${contact.id}`}
-                    >
-                        <CgDetailsMore/>
-                    </Link>
+                  <MdDeleteOutline onClick={() => handleDeleteContact(contact.id)} />
+                  <Link
+                    style={{ textDecoration: 'none', color: '#fedd95', cursor: 'pointer' }}
+                    href={`/detail/${contact.id}`}
+                  >
+                    <CgDetailsMore />
+                  </Link>
                 </div>
               </ContactPhone>
             </ContactItem>
@@ -162,15 +162,15 @@ const ContactList: FC<ContactListProps> = ({ contacts, handleFavorites, isFavori
               </ContactName>
               <ContactPhone>
                 <div>{contact.phones[0]?.number || 'N/A'}</div>
-                  <div>
-                      <MdDeleteOutline onClick={() => handleDeleteContact(contact.id)} />
-                      <Link
-                          style={{ textDecoration: 'none', color: '#fedd95', cursor: 'pointer' }}
-                          href={`/detail/${contact.id}`}
-                      >
-                          <CgDetailsMore/>
-                      </Link>
-                  </div>
+                <div>
+                  <MdDeleteOutline onClick={() => handleDeleteContact(contact.id)} />
+                  <Link
+                    style={{ textDecoration: 'none', color: '#fedd95', cursor: 'pointer' }}
+                    href={`/detail/${contact.id}`}
+                  >
+                    <CgDetailsMore />
+                  </Link>
+                </div>
               </ContactPhone>
             </ContactItem>
           ))}
@@ -203,15 +203,15 @@ const ContactList: FC<ContactListProps> = ({ contacts, handleFavorites, isFavori
               </ContactName>
               <ContactPhone>
                 <div>{contact.phones[0]?.number || 'N/A'}</div>
-                  <div style={{display:'flex', gap:'4px', alignItems:'baseline'}}>
-                      <MdDeleteOutline onClick={() => handleDeleteContact(contact.id)} />
-                      <Link
-                          style={{ textDecoration: 'none', color: '#fedd95', cursor: 'pointer' }}
-                          href={`/detail/${contact.id}`}
-                      >
-                          <CgDetailsMore/>
-                      </Link>
-                  </div>
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'baseline' }}>
+                  <MdDeleteOutline onClick={() => handleDeleteContact(contact.id)} />
+                  <Link
+                    style={{ textDecoration: 'none', color: '#fedd95', cursor: 'pointer' }}
+                    href={`/detail/${contact.id}`}
+                  >
+                    <CgDetailsMore />
+                  </Link>
+                </div>
               </ContactPhone>
             </ContactItem>
           ))}
@@ -221,23 +221,23 @@ const ContactList: FC<ContactListProps> = ({ contacts, handleFavorites, isFavori
   }
 
   return (
-      <>
-          <ContactListContainer>{layoutComponent}</ContactListContainer>
-          <Modal
-              isOpen={isModalFailedOpen}
-              onClose={closeFailedModal}
-          >
-              <h3 style={{ textAlign: 'center', margin: '10px 0' }}>Failed</h3>
-              <p style={{ textAlign: 'center' }}>Failed to delete contact</p>
-          </Modal>
-          <Modal
-              isOpen={isModalSuccessOpen}
-              onClose={closeSuccessModal}
-          >
-              <h3 style={{ textAlign: 'center', margin: '10px 0' }}>Success</h3>
-              <p style={{ textAlign: 'center' }}>Success delete your contact</p>
-          </Modal>
-      </>
+    <>
+      <ContactListContainer>{layoutComponent}</ContactListContainer>
+      <Modal
+        isOpen={isModalFailedOpen}
+        onClose={closeFailedModal}
+      >
+        <h3 style={{ textAlign: 'center', margin: '10px 0' }}>Failed</h3>
+        <p style={{ textAlign: 'center' }}>Failed to delete contact</p>
+      </Modal>
+      <Modal
+        isOpen={isModalSuccessOpen}
+        onClose={closeSuccessModal}
+      >
+        <h3 style={{ textAlign: 'center', margin: '10px 0' }}>Success</h3>
+        <p style={{ textAlign: 'center' }}>Success delete your contact</p>
+      </Modal>
+    </>
   )
 }
 
