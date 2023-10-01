@@ -10,11 +10,17 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 import HeaderList, { SubHeader } from '@/components/Header/HeaderList'
 import { arraysHaveSameObjects } from '@/utils/checkArray'
 import Header from '@/components/Header/Header'
+
+import Modal from "@/components/Base/Modal";
+import Button from "@/components/Base/Button";
+import AddContactForm from "@/components/Contact/AddContactForm";
+import {marginBottom} from "styled-system";
 const Home: NextPage = () => {
   const [offset, setOffset] = useState<number>(0)
   const [contacts, setContacts, removeContact] = useLocalStorage<Contact[]>('contact list', [])
   const [favorites, setFavorites, removeFavorites] = useLocalStorage<Contact[]>('favorite list', [])
   const [temp, setTemp, removeTemp] = useLocalStorage<Contact[]>('Temp Check', [])
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     data: contactListData,
@@ -26,6 +32,9 @@ const Home: NextPage = () => {
       offset,
     },
   })
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const handleAddFavorites = (contact: Contact) => {
     setFavorites([...favorites, contact])
@@ -44,7 +53,6 @@ const Home: NextPage = () => {
       console.log(contactListData.contact)
       if (!arraysHaveSameObjects(contactListData.contact, temp)) {
         const noFavorites = contactListData.contact.filter((element) => !favorites.includes(element))
-        setFavorites([])
         setContacts(noFavorites)
         setTemp(contactListData.contact)
       }
@@ -78,6 +86,14 @@ const Home: NextPage = () => {
           isFavorite={false}
         />
       )}
+
+      <div style={{textAlign: 'center', marginBottom: '20px', marginTop:'10px'}}>
+        <Button text={'Tambah Kontak'} onClick={openModal}/>
+      </div>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <AddContactForm />
+      </Modal>
     </CustomHead>
   )
 }
