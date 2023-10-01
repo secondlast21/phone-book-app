@@ -6,7 +6,7 @@ export interface ContactByPk {
   last_name: string
   id: number
   first_name: string
-  created_at: Date
+  created_at: Date | string
   phones: Phone[]
 }
 

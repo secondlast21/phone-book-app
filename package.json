@@ -28,6 +28,7 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@types/styled-system": "^5.1.18",
+    "cypress": "^13.3.0",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "typescript": "latest"
