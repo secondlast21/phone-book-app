@@ -1,11 +1,11 @@
-import React, { FC, ReactNode } from 'react';
-import styled from "@emotion/styled";
-import Button from "@/components/Base/Button";
+import React, { FC, ReactNode } from 'react'
+import styled from '@emotion/styled'
+import Button from '@/components/Base/Button'
 
 interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    children: ReactNode;
+  isOpen: boolean
+  onClose: () => void
+  children: ReactNode
 }
 
 const ModalStyles = styled.div`
@@ -18,7 +18,7 @@ const ModalStyles = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const ContentStyles = styled.div`
   background-color: #242428;
@@ -26,19 +26,22 @@ const ContentStyles = styled.div`
   border-radius: 5px;
   border: 1px solid #fedd95;
   margin: 0 10px;
-`;
+`
 
 const Modal: FC<ModalProps> = ({ isOpen, onClose, children }) => {
-    if (!isOpen) return null;
+  if (!isOpen) return null
 
-    return (
-        <ModalStyles>
-            <ContentStyles>
-                <Button text='X' onClick={onClose} />
-                {children}
-            </ContentStyles>
-        </ModalStyles>
-    );
-};
+  return (
+    <ModalStyles>
+      <ContentStyles>
+        <Button
+          text='X'
+          onClick={onClose}
+        />
+        {children}
+      </ContentStyles>
+    </ModalStyles>
+  )
+}
 
-export default Modal;
+export default Modal
